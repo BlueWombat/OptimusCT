@@ -11,6 +11,7 @@
     <licenseUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/LICENSE</licenseUrl>
     <description>A custom build target that automatically transforms config files for each environment defined</description>
     <copyright>Copyright 2017 BlueWombat</copyright>
+    <tags>config configuration transform transformation build deploy target utility</tags>
   </metadata>
 
   <files>
