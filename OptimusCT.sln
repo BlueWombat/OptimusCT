@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OptimusCT", "OptimusCT", "{2115DBCE-344E-40BC-8CDB-792F552BB4C0}"
+	ProjectSection(SolutionItems) = preProject
+		OptimusCT\Autobot.png = OptimusCT\Autobot.png
+		OptimusCT\OptimusCT.config = OptimusCT\OptimusCT.config
+		OptimusCT\OptimusCT.nuspec = OptimusCT\OptimusCT.nuspec
+		OptimusCT\OptimusCT.targets = OptimusCT\OptimusCT.targets
+		OptimusCT\OptimusCTLogic.targets = OptimusCT\OptimusCTLogic.targets
+		OptimusCT\Readme.txt = OptimusCT\Readme.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
