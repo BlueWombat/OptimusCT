@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="OptimusCT_LoadConfig" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <ProjectDir ParameterType="System.String" Required="true" />
+      <Environments ParameterType="System.String[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Linq" />
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Using Namespace="System" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Xml.Linq" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          var configFilePath = Path.Combine(ProjectDir, "OptimusCT.config");
+          var xDoc = XDocument.Load(configFilePath);
+          Environments = xDoc.Element("OptimusCT").Elements("Environment").Select(e => e.Value).ToArray();
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+  <Import Project="OptimusCTLogic.targets" />
+  <Target Name="OptimusCT_Invoke" BeforeTargets="BeforeBuild">
+    <OptimusCT_LoadConfig ProjectDir="$(ProjectDir)">
+      <Output TaskParameter="Environments" ItemName="Environments" />
+    </OptimusCT_LoadConfig>
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Properties="Environment=%(Environments.Identity)" Targets="OptimusCT_TransformConfigFiles" />
+  </Target>
+</Project>

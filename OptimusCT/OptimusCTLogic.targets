@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="OptimusCT_FindConfigFiles" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <ProjectDir ParameterType="System.String" Required="true" />
+      <ProjectFilename ParameterType="System.String" Required="true" />
+      <Environment ParameterType="System.String" Required="true" Output="true" />
+      <Expression ParameterType="System.String" Output="true" />
+      <ConfigFiles ParameterType="System.String[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Linq" />
+      <Using Namespace="System" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          var projectFilePath = Path.Combine(ProjectDir, ProjectFilename);
+          var projectText = File.ReadAllText(projectFilePath);
+          Expression = @"<(?:Content|None) Include=""(?<configFile>.+" + Environment.Replace(".", @"\.") + @"\.(?:config|xml|ipsecurity))""\s*\/?>";
+          ConfigFiles = Regex.Matches(projectText, Expression)
+              .Cast<Match>()
+              .Select(m => m.Groups["configFile"].Value)
+              .Distinct()
+              .ToArray();
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="OptimusCT_TransformConfigFiles">
+    <Message Importance="high" Text="Creating environment specific config files" />
+    <OptimusCT_FindConfigFiles ProjectDir="$(ProjectDir)" ProjectFilename="$(MSBuildProjectFile)" Environment="$(Environment)">
+      <Output TaskParameter="ConfigFiles" ItemName="ConfigFiles" />
+      <Output TaskParameter="Environment" PropertyName="Environment" />
+      <Output TaskParameter="Expression" PropertyName="Expression" />
+    </OptimusCT_FindConfigFiles>
+    <PropertyGroup>
+      <BasePath>obj\OptimusCTOutput\$(Environment)\</BasePath>
+    </PropertyGroup>
+    <RemoveDir Condition="Exists('$(BasePath)')" Directories="$(BasePath)" />
+    <!--<Message Importance="high" Text="Regex: $(Expression)" />-->
+    <Warning Text="No files to transform for environment: $(Environment)" Condition="@(ConfigFiles->Count()) == 0" />
+    <Message Condition="@(ConfigFiles->Count()) > 0" Importance="high" Text="File to transform: $([System.String]::Copy('%(ConfigFiles.Identity)').Replace('.$(Environment)', '')) using %(ConfigFiles.Identity)" />
+    <MakeDir Condition="@(ConfigFiles->Count()) > 0" Directories="$(BasePath)$([System.String]::Copy(%(ConfigFiles.Identity)).Replace('%(ConfigFiles.Filename).config', '').Replace('%(ConfigFiles.Filename).xml', '').Replace('%(ConfigFiles.Filename).ipsecurity', ''))" />
+    <TransformXml Condition="@(ConfigFiles->Count()) > 0" Source="$([System.String]::Copy('%(ConfigFiles.FullPath)').Replace('.$(Environment)', ''))" Transform="%(ConfigFiles.FullPath)" Destination="$(BasePath)\$([System.String]::Copy('%(ConfigFiles.Identity)').Replace('.$(Environment)', ''))" />
+  </Target>
+</Project>

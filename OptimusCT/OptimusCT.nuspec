@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>OptimusCT</id>
+    <version>1.0.0</version>
+    <title>OptimusCT</title>
+    <authors>BlueWombat</authors>
+    <owners>BlueWombat</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <iconUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/Autobot.png</iconUrl>
+    <licenseUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/LICENSE</licenseUrl>
+    <description>A custom build target that automatically transforms config files for each environment defined</description>
+    <copyright>Copyright 2017 BlueWombat</copyright>
+  </metadata>
+
+  <files>
+    <file src="OptimusCT.targets" target="build\" />
+    <file src="OptimusCTLogic.targets" target="build\" />
+    <file src="OptimusCT.config" target="content\OptimusCT.config" />
+    <file src="Readme.txt" target="" />
+  </files>
+</package>
