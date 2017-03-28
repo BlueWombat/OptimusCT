@@ -7,6 +7,7 @@
     <authors>BlueWombat</authors>
     <owners>BlueWombat</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <projectUrl>http://optimusct.net</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/OptimusCT/Autobot.png</iconUrl>
     <licenseUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/LICENSE</licenseUrl>
     <description>A custom build target that automatically transforms config files for each environment defined</description>

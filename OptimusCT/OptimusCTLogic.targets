@@ -40,9 +40,9 @@
     </PropertyGroup>
     <RemoveDir Condition="Exists('$(BasePath)')" Directories="$(BasePath)" />
     <!--<Message Importance="high" Text="Regex: $(Expression)" />-->
-    <Warning Text="No files to transform for environment: $(Environment)" Condition="@(ConfigFiles->Count()) == 0" />
-    <Message Condition="@(ConfigFiles->Count()) > 0" Importance="high" Text="File to transform: $([System.String]::Copy('%(ConfigFiles.Identity)').Replace('.$(Environment)', '')) using %(ConfigFiles.Identity)" />
-    <MakeDir Condition="@(ConfigFiles->Count()) > 0" Directories="$(BasePath)$([System.String]::Copy(%(ConfigFiles.Identity)).Replace('%(ConfigFiles.Filename).config', '').Replace('%(ConfigFiles.Filename).xml', '').Replace('%(ConfigFiles.Filename).ipsecurity', ''))" />
-    <TransformXml Condition="@(ConfigFiles->Count()) > 0" Source="$([System.String]::Copy('%(ConfigFiles.FullPath)').Replace('.$(Environment)', ''))" Transform="%(ConfigFiles.FullPath)" Destination="$(BasePath)\$([System.String]::Copy('%(ConfigFiles.Identity)').Replace('.$(Environment)', ''))" />
+    <Warning Text="No files to transform for environment: $(Environment)" Condition="'@(ConfigFiles->Count())' == 0" />
+    <Message Condition="'@(ConfigFiles->Count())' > 0" Importance="high" Text="File to transform: $([System.String]::Copy('%(ConfigFiles.Identity)').Replace('.$(Environment)', '')) using %(ConfigFiles.Identity)" />
+    <MakeDir Condition="'@(ConfigFiles->Count())' > 0" Directories="$(BasePath)$([System.String]::Copy(%(ConfigFiles.Identity)).Replace('%(ConfigFiles.Filename).config', '').Replace('%(ConfigFiles.Filename).xml', '').Replace('%(ConfigFiles.Filename).ipsecurity', ''))" />
+    <TransformXml Condition="'@(ConfigFiles->Count())' > 0" Source="$([System.String]::Copy('%(ConfigFiles.FullPath)').Replace('.$(Environment)', ''))" Transform="%(ConfigFiles.FullPath)" Destination="$(BasePath)\$([System.String]::Copy('%(ConfigFiles.Identity)').Replace('.$(Environment)', ''))" />
   </Target>
 </Project>
