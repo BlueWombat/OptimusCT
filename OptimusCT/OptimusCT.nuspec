@@ -1,24 +1,26 @@
-﻿<?xml version="1.0"?>
-<package>
-  <metadata>
-    <id>OptimusCT</id>
-    <version>1.0.0</version>
-    <title>OptimusCT</title>
-    <authors>BlueWombat</authors>
-    <owners>BlueWombat</owners>
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <projectUrl>http://optimusct.net</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/OptimusCT/Autobot.png</iconUrl>
-    <licenseUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/LICENSE</licenseUrl>
-    <description>A custom build target that automatically transforms config files for each environment defined</description>
-    <copyright>Copyright 2017 BlueWombat</copyright>
-    <tags>config configuration transform transformation build deploy target utility</tags>
-  </metadata>
-
-  <files>
-    <file src="OptimusCT.targets" target="build\" />
-    <file src="OptimusCTLogic.targets" target="build\" />
-    <file src="OptimusCT.config" target="content\OptimusCT.config" />
-    <file src="Readme.txt" target="" />
-  </files>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>OptimusCT</id>
+        <version>1.0.0</version>
+        <title>OptimusCT</title>
+        <authors>BlueWombat</authors>
+        <owners>BlueWombat</owners>
+        <licenseUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/LICENSE</licenseUrl>
+        <projectUrl>http://optimusct.net</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/BlueWombat/OptimusCT/master/OptimusCT/Autobot.png</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>A custom build target that automatically transforms config files for each environment defined</description>
+        <copyright>Copyright 2017 BlueWombat</copyright>
+        <tags>config configuration transform transformation build deploy target utility</tags>
+        <dependencies>
+            <dependency id="MSBuild.Microsoft.VisualStudio.Web.targets" version="14.0.0.3" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="OptimusCT.targets" target="build\OptimusCT.targets" />
+        <file src="OptimusCTLogic.targets" target="build\OptimusCTLogic.targets" />
+        <file src="OptimusCT.config" target="content\OptimusCT.config" />
+        <file src="Readme.txt" target="Readme.txt" />
+    </files>
 </package>
